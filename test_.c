@@ -6,8 +6,9 @@ void main() {
   
   // str test=openfile("hello.txt");
   // printf("%s",test);
-  int x =5;
+  int x =5; int z =7;
   int i ;
+  printf("%d,%d\n",x,z);
   لو(x==5){
     printf("x=5");
   }
@@ -18,9 +19,8 @@ void main() {
   //   printf("x=0");
   // }
   
-  for ( i = 0; i < x; i ++){
-    printf("hello");
-  }
+  // for ( i = 0; i < x; i++){
+  //   printf("hello");
+  // }
 
- 
 }

@@ -10,6 +10,9 @@ from ..syntax_analysis.tree import *
 from ..semantic_analysis.analyzer import SemanticAnalyzer
 from ..utils.utils import get_functions, MessageColor
 
+import re
+
+
 class Interpreter(NodeVisitor):
 
     def __init__(self):
@@ -242,7 +245,8 @@ class Interpreter(NodeVisitor):
         SemanticAnalyzer.analyze(tree)
         var = self.interpret_with_memory(tree=tree,var_name="equation")
         return var.value
-      
+    
+    
     @staticmethod
     def run(program):
 
@@ -251,6 +255,8 @@ class Interpreter(NodeVisitor):
             parser = Parser(lexer)
             tree = parser.parse()
             SemanticAnalyzer.analyze(tree)
+            # Interpreter.get_tree(tree)
+            
             status = Interpreter().interpret(tree)
         except Exception as message:
             print("{}[{}] {} {}".format(
@@ -262,6 +268,69 @@ class Interpreter(NodeVisitor):
             status = -1
         print()
         print(MessageColor.OKBLUE + "Process terminated with status {}".format(status) + MessageColor.ENDC)
+    
+    @staticmethod
+    def run_interactive():
+        program_memory="#include <stdio.h>\nvoid main(){"
+        while True:
+            try:
+                program = input(f"{MessageColor.OKGREEN}GOWIN>{MessageColor.ENDC}")
+                if program == '':
+                    continue
+                if program.lower() == 'quit':
+                    break
+                program_memory=remove_printf(program_memory)
+                program_memory+=program
+                
+                lexer = Lexer(program_memory+"}")
+                parser = Parser(lexer)
+                tree = parser.parse()
+                SemanticAnalyzer.analyze(tree)
+                status = Interpreter().interpret(tree)
+                print()
+                # print(MessageColor.OKBLUE + "Process terminated with status {}".format(status) + MessageColor.ENDC)
+            except Exception as message:
+                print("{}[{}] {} {}".format(
+                    MessageColor.FAIL,
+                    type(message).__name__,
+                    message,
+                    MessageColor.ENDC
+                ))
+                status = -1
+        print()
+        print(MessageColor.OKBLUE + "Process terminated with status {}".format(status) + MessageColor.ENDC)
+        
+   
+    
         
 
 
+
+def remove_printf(code):
+    return re.sub(r'printf\([^;]*;\s*', '', code)
+
+def print_children(node, level=0):
+    print(' ' * level*2 + 'Node:', type(node).__name__)
+    if hasattr(node, 'children'):
+        for child in node.children:
+            print_children(child, level + 1)
+    if hasattr(node, 'body') and hasattr(node.body, 'children'):
+        for child in node.body.children:
+            print_children(child, level + 1)
+            
+
+
+def get_tree(tree):
+    for child in tree.children:
+            print_children(child)
+
+def remove_functions(node):
+    if hasattr(node, 'children'):
+        for child in node.children:
+            if isinstance(child, FunctionCall):
+                if child.name in ["printf","printarr"]:
+                    node.children.remove(child)
+            else:
+                    remove_functions(child)
+                    
+    return node
