@@ -14,7 +14,6 @@ def printf(*args):
         printf("%d %d", 1, 2);
     """
     fmt, *params = args
-    print(args,params)
     param_list=[]
     for param in params:
         if type(param) ==CustomList:
