@@ -272,6 +272,7 @@ class Interpreter(NodeVisitor):
     @staticmethod
     def run_interactive():
         program_memory="#include <stdio.h>\nvoid main(){"
+        status=-1
         while True:
             try:
                 program = input(f"{MessageColor.OKGREEN}GOWIN>{MessageColor.ENDC}")
@@ -289,6 +290,9 @@ class Interpreter(NodeVisitor):
                 status = Interpreter().interpret(tree)
                 print()
                 # print(MessageColor.OKBLUE + "Process terminated with status {}".format(status) + MessageColor.ENDC)
+            except KeyboardInterrupt:
+                print("\nInterrupted by user. Exiting...")
+                break
             except Exception as message:
                 print("{}[{}] {} {}".format(
                     MessageColor.FAIL,
