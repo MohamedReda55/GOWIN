@@ -300,6 +300,7 @@ class Interpreter(NodeVisitor):
                     message,
                     MessageColor.ENDC
                 ))
+                program_memory="#include <stdio.h>\nvoid main(){"
                 status = -1
         print()
         print(MessageColor.OKBLUE + "Process terminated with status {}".format(status) + MessageColor.ENDC)
