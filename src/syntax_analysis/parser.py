@@ -16,6 +16,11 @@ class Parser(object):
         self.current_token = self.lexer.get_next_token
 
     def error(self, message):
+        line = self.lexer.text.split('\n')[self.lexer.line - 1]
+        print('File "<stdin>", line {}'.format(self.lexer.line))
+        print('----> ' + line)
+        column = self.lexer.pos - self.lexer.text.rfind('\n', 0, self.lexer.pos)
+        print('    ' + ' ' * column + '^')
         raise SyntaxError(message)
 
     def eat(self, token_type):
