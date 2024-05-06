@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+int testfunc(int param1){
+  return param1+5;
+}
 void main() {
 
   // int x[];
@@ -8,9 +11,19 @@ void main() {
   // printf("%s",test);
   int x =5; int z =7;
   int i ;
-  printf("%d,%d\n",x,z);
-  لو(x==5){
-    printf("x=5");
+  لو(testfunc(1)==6){
+    printf("true\n");
+  }
+  switch (x){
+    case (7) {
+      printf("5");
+    }
+    case (6){
+      printf("6");
+    }
+    default{
+      printf("not found");
+    }
   }
   // int z = 'c';
   // int x = 5;
@@ -22,5 +35,6 @@ void main() {
   // for ( i = 0; i < x; i++){
   //   printf("hello");
   // }
+  
 
 }

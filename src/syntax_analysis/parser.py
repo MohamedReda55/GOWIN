@@ -232,6 +232,8 @@ class Parser(object):
             return self.iteration_statement()
         elif self.check_selection_statement():
             return self.selection_statement()
+        elif self.check_switch_statement():
+            return self.switch_statement()
         elif self.check_jump_statement():
             return self.jump_statement()
         elif self.check_compound_statement():
@@ -296,6 +298,9 @@ class Parser(object):
     @restorable
     def check_selection_statement(self):
         return self.current_token.type == IF
+    @restorable
+    def check_switch_statement(self):
+        return self.current_token.type == SWITCH
 
     def selection_statement(self):
         """
@@ -317,7 +322,49 @@ class Parser(object):
                 fbody=fstatement,
                 line=self.lexer.line
             )
-
+       
+    def switch_statement(self):
+       
+        if self.current_token.type == SWITCH:
+            
+            self.eat(SWITCH)
+            self.eat(LPAREN)
+            var = self.variable()
+            self.eat(RPAREN)
+            
+            case_result = []
+            default_result=None
+            self.eat(LBRACKET)
+            while self.current_token.type != RBRACKET:
+                if self.current_token.type == CASE:
+                    case_result.append(self.case_statment())
+                elif self.current_token.type ==DEFAULT :
+                    default_result=self.default_clause()
+            self.eat(RBRACKET)
+            
+            return SwitchStmt(
+               condition=var,
+               case_children=case_result,
+               default_body=default_result,
+               line=self.lexer.line
+           )
+    def case_statment(self):
+        self.eat(CASE)
+        self.eat(LPAREN)
+        exp=self.primary_expression()
+        self.eat(RPAREN)
+        if exp is None :
+            self.error("Failed to parse case statement")
+        return CaseStmt(
+            condition= exp,
+            case_body=self.statement(),
+            line=self.lexer.line
+        )
+        
+    def default_clause(self):
+        self.eat(DEFAULT)
+        return self.statement()
+        
     @restorable
     def check_iteration_statement(self):
         return self.current_token.type in (WHILE, DO, FOR)
@@ -721,6 +768,8 @@ class Parser(object):
             return self.list_token()
         else:
             return self.variable()
+ 
+        
 
     def list_expression(self):
         """
@@ -785,7 +834,6 @@ class Parser(object):
             token=self.current_token,
             line=self.lexer.line
         )
-        
         self.eat(ID)
 
         return node

@@ -17,6 +17,9 @@ RESERVED_KEYWORDS = {
     'break': Token(BREAK, 'break'),
     'continue': Token(CONTINUE, 'continue'),
     'void': Token(VOID, 'void'),   
+    'switch':Token(SWITCH, 'switch'),
+    'case':Token(CASE, 'case'),
+    'default':Token(DEFAULT, 'default'),
     'لو':Token(IF, 'if')
 }
 

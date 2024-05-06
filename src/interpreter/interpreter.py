@@ -205,7 +205,23 @@ class Interpreter(NodeVisitor):
             self.visit(node.tbody)
         else:
             self.visit(node.fbody)
-
+    def visit_SwitchStmt(self,node):
+        
+        var = node.condition
+        var_value=self.visit(var)
+        case_children=node.case_children
+        for case in case_children:
+            case_exp=self.visit(case.condition)
+            if case_exp.value == var_value.value:
+                self.visit(case.body)
+                return
+        if node.default_body != None:
+            self.visit(node.default_body)
+            
+            
+        
+    # def visit_CaseStmt(self,node):
+    #     return self.visit()
     def visit_WhileStmt(self, node):
         while self.visit(node.condition):
             self.visit(node.body)
@@ -269,6 +285,18 @@ class Interpreter(NodeVisitor):
         print()
         print(MessageColor.OKBLUE + "Process terminated with status {}".format(status) + MessageColor.ENDC)
     
+    @staticmethod
+    def run_debug(program):
+
+       
+            lexer = Lexer(program)
+            parser = Parser(lexer)
+            tree = parser.parse()
+            SemanticAnalyzer.analyze(tree)
+            # Interpreter.get_tree(tree)
+            
+            status = Interpreter().interpret(tree)
+        
     @staticmethod
     def run_interactive():
         program_memory="#include <stdio.h>\nvoid main(){"

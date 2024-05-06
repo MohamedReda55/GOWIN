@@ -97,6 +97,19 @@ class IfStmt(Node):
         self.fbody = fbody
 
 
+class SwitchStmt(Node):
+    def __init__(self, condition, case_children, line, default_body=None):
+        Node.__init__(self, line)
+        self.condition = condition
+        self.case_children = case_children
+        self.default_body = default_body
+    
+class CaseStmt(Node):
+    def __init__(self, condition, case_body, line):
+        Node.__init__(self, line)
+        self.condition = condition
+        self.body = case_body
+        
 class WhileStmt(Node):
     def __init__(self, condition, body, line):
         Node.__init__(self, line)
@@ -188,7 +201,6 @@ class NodeVisitor(object):
     def visit(self, node):
 
         method_name = 'visit_' + type(node).__name__
-       
         visitor = getattr(self, method_name, self.generic_visit)
         
         return visitor(node)

@@ -252,6 +252,17 @@ class SemanticAnalyzer(NodeVisitor):
         self.visit(node.tbody)
         self.visit(node.fbody)
 
+    def visit_SwitchStmt(self, node):
+        self.visit(node.condition)
+        for case in node.case_children:
+            self.visit(case)
+        if node.default_body != None:
+            self.visit(node.default_body)
+    
+    def visit_CaseStmt(self,node):
+        self.visit(node.condition)
+        self.visit(node.body)
+        
     def visit_ForStmt(self, node):
         """ for(setup condition increment) body"""
         self.visit(node.setup)
