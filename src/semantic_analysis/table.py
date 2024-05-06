@@ -71,6 +71,8 @@ class ScopedSymbolTable(object):
         self.insert(BuiltinTypeSymbol('double'))
         self.insert(BuiltinTypeSymbol('void'))
         self.insert(BuiltinTypeSymbol('str'))
+        self.insert(BuiltinTypeSymbol('list'))
+        
         
 
     def __str__(self):

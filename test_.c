@@ -11,6 +11,8 @@ void main() {
   // printf("%s",test);
   int x =5; int z =7;
   int i ;
+  list arr=[1,2,3,4];
+  printarr(arr);
   لو(testfunc(1)==6){
     printf("true\n");
   }

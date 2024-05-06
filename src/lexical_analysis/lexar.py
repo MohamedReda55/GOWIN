@@ -8,6 +8,8 @@ RESERVED_KEYWORDS = {
     'float': Token(FLOAT, 'float'),
     'double': Token(DOUBLE, 'double'),
     'str' : Token(STR,"str"),
+    'list' : Token(LIST_CONST,"list"),
+    
     'if': Token(IF, 'if'),
     'else': Token(ELSE, 'else'),
     'for': Token(FOR, 'for'),
@@ -108,6 +110,8 @@ class Lexer(object):
             token = Token(INTEGER_CONST, int(result))
 
         return token
+    
+    ## use test_list instead
     def list(self):
         """ Return list written in code without square brackets"""
         result = ''

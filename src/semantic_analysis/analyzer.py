@@ -213,11 +213,11 @@ class SemanticAnalyzer(NodeVisitor):
         """ right = left """
         right = self.visit(node.right)
         left = self.visit(node.left)
-        try:
-            if  node.left.token.type==token_type.ID and node.right.token.type == token_type.LIST:
-                return right
-        except:
-            pass
+        # try:
+        #     if  node.left.token.type==token_type.ID and node.right.token.type == token_type.LIST:
+        #         return right
+        # except:
+        #     pass
         # print(left.type,right.type)
         if left != right:
             self.warning("Incompatible types when assigning to type <{}> from type <{}> at line {}".format(
@@ -233,6 +233,7 @@ class SemanticAnalyzer(NodeVisitor):
         """ value """
         var_name = node.value
         var_symbol = self.current_scope.lookup(var_name)
+
         if var_symbol is None:
             self.error(
                 "Symbol(identifier) not found '{}' at line {}".format(

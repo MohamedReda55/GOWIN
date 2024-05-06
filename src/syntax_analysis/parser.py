@@ -56,7 +56,7 @@ class Parser(object):
         """
         declarations = []
 
-        while self.current_token.type in [CHAR, FLOAT, DOUBLE, INT, HASH, VOID,STR]:
+        while self.current_token.type in [CHAR, FLOAT, DOUBLE, INT, HASH, VOID,STR,LIST_CONST]:
 
             if self.current_token.type == HASH:
                 declarations.append(self.include_library())
@@ -128,7 +128,7 @@ class Parser(object):
         result = []
         self.eat(LBRACKET)
         while self.current_token.type != RBRACKET:
-            if self.current_token.type in (CHAR, INT, FLOAT, DOUBLE,STR):
+            if self.current_token.type in (CHAR, INT, FLOAT, DOUBLE,STR,LIST_CONST):
                 result.extend(self.declaration_list())
             else:
                 result.append(self.statement())
@@ -163,7 +163,7 @@ class Parser(object):
         declaration_list            : declaration+
         """
         result = self.declaration()
-        while self.current_token.type == (CHAR, INT, FLOAT, DOUBLE,STR):
+        while self.current_token.type == (CHAR, INT, FLOAT, DOUBLE,STR,LIST_CONST):
             result.extend(self.declaration())
         return result
 
@@ -186,6 +186,7 @@ class Parser(object):
                 ))
             else:
                 result.append(node)
+
         self.eat(SEMICOLON)
         return result
 
@@ -817,7 +818,7 @@ class Parser(object):
         type_spec                   : TYPE
         """
         token = self.current_token
-        if token.type in (CHAR, INT, FLOAT, DOUBLE, VOID,STR):
+        if token.type in (CHAR, INT, FLOAT, DOUBLE, VOID,STR,LIST_CONST):
             self.eat(token.type)
             return Type(
                 token=token,
