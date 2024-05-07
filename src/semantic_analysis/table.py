@@ -106,6 +106,7 @@ class ScopedSymbolTable(object):
         # print('Lookup: %s. (Scope name: %s)' % (name, self.scope_name))
         # 'symbol' is either an instance of the Symbol class or None
         symbol = self._symbols.get(name)
+        # print(self._symbols)
         if symbol is not None:
             return symbol
 

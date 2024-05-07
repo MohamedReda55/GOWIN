@@ -72,7 +72,8 @@ class Parser(object):
         """
         self.eat(HASH)
         token = self.current_token
-        if token.value != 'include':
+        
+        if token.value not in ['include','تضمين']:
             self.error(
                 'Expected token "include" but found {} at line {}.'.format(
                     token.value, self.lexer.line

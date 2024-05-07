@@ -52,16 +52,18 @@ class SemanticAnalyzer(NodeVisitor):
             enclosing_scope=self.current_scope,
         )
         global_scope._init_builtins()
+        
         self.current_scope = global_scope
 
+        
         for child in node.children:
+            
             self.visit(child)
 
-        if not self.current_scope.lookup('main'):
+        if not self.current_scope.lookup('main') and not self.current_scope.lookup('رئيسية') :
             self.error(
                 "Error: Undeclared mandatory function main"
             )
-
         self.current_scope = self.current_scope.enclosing_scope
 
     def visit_VarDecl(self, node):
@@ -88,7 +90,7 @@ class SemanticAnalyzer(NodeVisitor):
         functions = get_functions('src.__builtins__.{}'.format(
             node.library_name
         ))
-
+        
         for func in functions:
             type_symbol = self.current_scope.lookup(func.return_type)
 
@@ -110,7 +112,7 @@ class SemanticAnalyzer(NodeVisitor):
 
     def visit_FunctionDecl(self, node):
         """ type_node  func_name ( params ) body """
-
+        
         type_name = node.type_node.value
         type_symbol = self.current_scope.lookup(type_name)
 
@@ -364,5 +366,7 @@ class SemanticAnalyzer(NodeVisitor):
     @staticmethod
     def analyze(tree):
         semantic_analyzer = SemanticAnalyzer()
+        
+        # get_tree(tree)
         
         semantic_analyzer.visit(tree)

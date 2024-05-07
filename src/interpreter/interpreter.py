@@ -25,6 +25,10 @@ class Interpreter(NodeVisitor):
             ))
             
             for function in functions:
+                if function.__name__=="printf":
+
+                    self.memory["اطبع"] = function
+
                 self.memory[function.__name__] = function
 
     def load_functions(self, tree):
@@ -237,7 +241,11 @@ class Interpreter(NodeVisitor):
         self.load_functions(tree)
         self.visit(tree)
         self.memory.new_frame('main')
-        node = self.memory['main']
+        try:
+            node = self.memory['رئيسية']
+        except:
+            node = self.memory['main']
+        
         res = self.visit(node)
         self.memory.del_frame()
         return res
