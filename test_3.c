@@ -4,7 +4,7 @@ void main(){
     list x =[1,2,3,4];
      
     int z =sumarr(x);
-    printf("%d",z);
+    printf("sum: %d\n",z);
     list li1=[3,4,5];
     list li2=[6,9,11];
 
@@ -14,4 +14,8 @@ void main(){
     printarr(resultli);
     printarr(y);
 
+    int elemntIndex = findIndex(li1,3);
+    if (elemntIndex != -1){
+        printf("found index:%d\n",elemntIndex);
+    }
 }

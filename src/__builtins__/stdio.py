@@ -6,6 +6,9 @@ from ..utils.utils import definition
 from ..interpreter.number import Number
 from ..interpreter.list import CustomList
 
+@definition(return_type='int', arg_types=None)
+def println(*args):
+    print(args)
 
 @definition(return_type='int', arg_types=None)
 def printf(*args):
@@ -91,3 +94,10 @@ def getchar():
     return ord(sys.stdin.read(1))
 
 
+@definition(return_type="int",arg_types=None)
+def findIndex(arr,value):
+    for i in range(len(arr)):
+        if arr[i].get()==value.get():
+            
+            return i
+    return -1
