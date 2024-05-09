@@ -34,3 +34,4 @@ def sumarr(arr):
     result = sum(array_int)
     # print(message)
     return result
+

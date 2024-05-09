@@ -8,7 +8,22 @@ from ..interpreter.list import CustomList
 
 @definition(return_type='int', arg_types=None)
 def println(*args):
-    print(args)
+    params = list(args)
+    
+    
+    param_list=[]
+    for i in range(len(params)):
+        
+        if type(params[i]) ==CustomList:
+            
+            params[i]=[param.value for param in params[0]]
+            continue
+        params[i]=params[i].value
+ 
+    print(*params)
+    return 0
+
+    
 
 @definition(return_type='int', arg_types=None)
 def printf(*args):
@@ -101,3 +116,15 @@ def findIndex(arr,value):
             
             return i
     return -1
+
+@definition(return_type='list', arg_types=None)
+def AddToList(array,element):
+    try:
+        new_array=array.value.copy()
+        new_array.append(element)
+        return CustomList(value=new_array)
+    except:
+        return 1
+    
+   
+   

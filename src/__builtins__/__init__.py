@@ -1,1 +1,1 @@
-from . import stdio,numpy
+from . import numwin, stdio
