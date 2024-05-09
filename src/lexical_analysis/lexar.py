@@ -22,19 +22,6 @@ RESERVED_KEYWORDS = {
     'switch':Token(SWITCH, 'switch'),
     'case':Token(CASE, 'case'),
     'default':Token(DEFAULT, 'default'),
-    
-  
-    # 'اخر':Token(ELSE, 'else'),
-    
-    # 'بينما':Token(WHILE, 'while'),
-    # 'كرر': Token(FOR, 'for'),
-    
-    # 'حرف': Token(CHAR, 'char'),
-    # 'رقم': Token(INT, 'int'),
-    # 'سلسلة' : Token(STR,"str"),
-    # 'قائمة' : Token(LIST_CONST,"list"),
-    
-  
 'حرف': Token(CHAR, 'char'),
 'صحيح': Token(INT, 'int'),
 'عشري': Token(FLOAT, 'float'),

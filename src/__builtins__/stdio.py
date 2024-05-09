@@ -31,7 +31,6 @@ def printf(*args):
 def printarr(*args):
     # fmt, *params = args
     array,*params=args
-   
     # message = ', '.join([element.get() for element in array.value])
     message=[element.get() for element in array]
     result = len(message)

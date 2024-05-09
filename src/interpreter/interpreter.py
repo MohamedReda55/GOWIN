@@ -79,6 +79,9 @@ class Interpreter(NodeVisitor):
         else:
             if self.memory[node.name].return_type == "str":
                 return CustomString(self.memory[node.name](*args))
+            elif self.memory[node.name].return_type == "list":
+                print(self.memory[node.name](*args))
+                return CustomList(self.memory[node.name](*args))
             
             return Number(self.memory[node.name].return_type, self.memory[node.name](*args))
 
@@ -278,8 +281,9 @@ class Interpreter(NodeVisitor):
             lexer = Lexer(program)
             parser = Parser(lexer)
             tree = parser.parse()
+            # get_tree(tree)
             SemanticAnalyzer.analyze(tree)
-            # Interpreter.get_tree(tree)
+            # get_tree(tree)
             
             status = Interpreter().interpret(tree)
         except Exception as message:

@@ -1,1 +1,1 @@
-from . import stdio
+from . import stdio,numpy

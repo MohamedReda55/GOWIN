@@ -133,6 +133,7 @@ class Parser(object):
                 result.extend(self.declaration_list())
             else:
                 result.append(self.statement())
+                
         self.eat(RBRACKET)
         return FunctionBody(
             children=result,
@@ -227,6 +228,7 @@ class Parser(object):
         statement                   : iteration_statement (while ,for)
                                     | selection_statement (if ,else, else if)
                                     | jump_statement (break , continue)
+                                    | switch_case_statement (switch , case)
                                     | compound_statement
                                     | expression_statement
         """
@@ -414,6 +416,7 @@ class Parser(object):
         
         if self.current_token.type != SEMICOLON:
             node = self.expression()
+        
         self.eat(SEMICOLON)
         return node and node or NoOp(line=self.lexer.line)
 
@@ -445,7 +448,7 @@ class Parser(object):
             self.eat(ID)
             return self.current_token.type.endswith('ASSIGN')
         return False
-
+    
     def assignment_expression(self):
         """
         assignment_expression       : assignment_expression (COMMA assignment_expression)*

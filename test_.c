@@ -3,17 +3,21 @@
 int testfunc(int param1){
   return param1+5;
 }
+
 void main() {
 
   // int x[];
   
   // str test=openfile("hello.txt");
   // printf("%s",test);
-  int x =5; int z =7;
+  int x =5, z =7;
+  int y =8;
   int i ;
-  str b="hello world";
-  list arr=[1,2,3,4];
+  str b= "hello world" ;
+  list arr=[1,2,3,4,'c'];
   printarr(arr);
+  
+  
   if(testfunc(1)==6){
     printf("true\n");
   }
@@ -31,6 +35,7 @@ void main() {
       printf("not found");
     }
   }
+
   // int z = 'c';
   // int x = 5;
   // printf("%s",x);
