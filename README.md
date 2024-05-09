@@ -3,7 +3,7 @@
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/yourusername/GOWIN`
+1. Clone the repository: `git clone https://github.com/MohamedReda55/GOWIN`
 2. Navigate to the project directory: `cd GOWIN`
 3. Install the dependencies: `pip install argparse`
 ## Usage
